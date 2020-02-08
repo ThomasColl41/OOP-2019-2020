@@ -33,8 +33,15 @@ public class BugZap extends PApplet
 	float halfPlayerWidth = playerWidth / 2;
 	
 
-	float bugX, bugY, bugWidth = 30;
+	float bugX = 0;
+	float bugY, bugWidth = 30;
 	float halfBugWidth = bugWidth / 2;
+
+	float projectileX, projectileY;
+	float projectileWidth = 30;
+	float halfProjectileWidth = projectileWidth / 2;
+
+	boolean projectile = false;
 
 	void reset()
 	{
@@ -45,7 +52,7 @@ public class BugZap extends PApplet
 
 	void resetBug()
 	{
-		bugX = random(halfBugWidth, width - halfBugWidth);
+		bugX = halfBugWidth;
 		bugY = 50;
 	}
 
@@ -109,26 +116,48 @@ public class BugZap extends PApplet
 		}
 		if (key == ' ')
 		{
-			line(playerX, playerY, playerX, bugY);
+			if (projectile == false)
+			{
+				projectileX = playerX;
+				projectileY = playerY;
+				drawProjectile(projectileX, projectileY);
+				projectile = true;
+			}
+			
 		}
 	}	
 
 	void moveBug()
 	{
-		if ((frameCount % 60) == 0)
-		{
-			bugX += random(-5, +5);
-			if (bugX < halfBugWidth )
-			{
-			  bugX = halfBugWidth;
-			}
+		bugX ++;
 			
-			if (bugX + halfBugWidth > width)
-			{
-			  bugX = width - halfBugWidth;
-			}
-			bugY ++;
+		if (bugX + halfBugWidth > width)
+		{
+			bugX = bugWidth;
 		}
+	}
+
+	void drawProjectile(float x, float y) {
+		triangle(x + halfProjectileWidth, y, x - halfProjectileWidth, y, x, y - 10);
+
+		if (y <= bugY)
+		{
+			projectile = false;
+		}
+	}
+
+	void moveProjectile() {
+		projectileY = projectileY - 10;
+		drawProjectile(projectileX, projectileY);
+	}
+
+	void bugZapped() {
+		if (projectileX >= bugX - halfBugWidth && projectileX <= bugX + halfBugWidth && projectileY == bugY)
+		{
+			textSize(32);
+			text("GOT EM", 250, 250);
+		}
+		
 	}
 
 	public void draw()
@@ -138,5 +167,7 @@ public class BugZap extends PApplet
 		drawPlayer(playerX, playerY, playerWidth);
 		drawBug(bugX, bugY);
 		moveBug();
+		moveProjectile();
+		bugZapped();
 	}
 }
