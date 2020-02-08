@@ -34,14 +34,23 @@ public class BugZap extends PApplet
     }
 
     public void drawBug(float x, float y, float w) {
-        stroke(255, 0, 0);
-        fill(0);
-        float width = random(500);
-        rect((x - width), y, w, 20);
-        stroke(255, 255, 255);
-        line((x - width), y, (x - width + w), 20);
-        line((x - width + 20), y, (x - width), 20);
-    }
+		textSize(32);
+		text("?", bugX, bugY);
+	}
+	
+	public void moveBug()
+	{
+		if (frameCount % 90 == 0)
+		{
+			bugY = bugY + 20;
+			bugX = random(100, 400);
+		}
+
+		if (bugY == playerY)
+		{
+			bugY = 0;
+		}
+	}
 
     public void keyPressed()
 	{
@@ -67,7 +76,8 @@ public class BugZap extends PApplet
 	{	
         background(0);
         drawPlayer(playerX, playerY, playerWidth);
-        drawBug(bugX, bugY, bugWidth);
+		drawBug(bugX, bugY, bugWidth);
+		moveBug();
         
         
 	}
