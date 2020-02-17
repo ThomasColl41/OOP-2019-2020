@@ -71,10 +71,9 @@ public class Main
         // a & b are object references
 
     }
-    
-    public static void main(String[] arg)
-    {
+
+    public static void main(String[] args) {
         Main main = new Main();
-		main.helloArrays();        
+		main.helloArrays();   
     }
 }
