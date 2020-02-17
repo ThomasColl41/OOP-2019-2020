@@ -33,7 +33,7 @@ public class Main
         // The type is a superclass, the instance is a subclass
 
         // This is not polymorphism
-        Cat topcat = new Cat("Topcat");
+        //Cat topcat = new Cat("Topcat");
 
         // This is polymorphism!
         Animal mino = new Cat("Mino");
