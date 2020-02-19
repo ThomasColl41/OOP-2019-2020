@@ -1,10 +1,11 @@
 package ie.tudublin;
 
-// Hello from Jacob
+import java.util.Arrays; 
+import java.util.Collections; 
 
 import processing.core.PApplet;
 
-public class Arrays extends PApplet
+public class ArraysExample extends PApplet
 {	
 
 	//float[] rainFall = new float[12]; 
@@ -52,6 +53,13 @@ public class Arrays extends PApplet
 			}
 		}
 		println(months[maxIndex] + " had the maximum rainfall of " + rainFall[maxIndex]);
+
+		// You can also calculate the minimum and max of an arry this way:
+		// Note the array is of type Float not float
+		// Float are objects float is a primitive type
+		Float[] floatArray = {10.0f, 5.0f, 20.0f};
+		float min = Collections.min(Arrays.asList(floatArray)); 
+        float max = Collections.max(Arrays.asList(floatArray));
 	}
 
 	void drawBarChart()
@@ -68,17 +76,6 @@ public class Arrays extends PApplet
 		}
 	}
 
-	void test()
-	{
-		
-	}
-
-	
-
-	float offset = 0;
-
-	
-	
 	public void keyPressed()
 	{
 		if (key == ' ')
@@ -86,7 +83,6 @@ public class Arrays extends PApplet
 			
 		}
 	}	
-
 
 	public void draw()
 	{	
