@@ -20,7 +20,8 @@ public class SoundMandala extends PApplet
 
 	public void settings()
 	{
-		size(1024, 1024);
+		fullScreen();
+		//size(1024, 1024);
 	}
 
 	public void setup() 
@@ -36,7 +37,7 @@ public class SoundMandala extends PApplet
 	}
 
 	float cx, cy;
-
+	float offs = 0;
 	public void draw()
 	{	
 		background(0);		
@@ -47,15 +48,19 @@ public class SoundMandala extends PApplet
 		strokeWeight(3);
 		float radius = cx;
 		float theta = TWO_PI / (float) numSamples;
-		float cgap = 255 / numSamples;
+		float cgap = 255 / numSamples + 1;
+		float average = 0;
 		for(int i = 0 ; i < numSamples ; i ++)
 		{
-			stroke(i * cgap, 255, 255);
+			float c = ((i + offs) * cgap) % 255; 
+			stroke(c, 255, 255);
 			lerpedSamples[i] = lerp(lerpedSamples[i], fft.getBand(i), 0.2f);
 			float x = cx + (sin(i * theta) * radius * lerpedSamples[i]);
 			float y = cy - (cos(i * theta) * radius * lerpedSamples[i]);
 			line(cx, cy, x, y);
-			//line(i, 0, i, fft.getBand(i) * 20);
+			average += lerpedSamples[i];  
 		}
+		average /= (float) numSamples;
+		offs = average * 2;
 	}
 }
