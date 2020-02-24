@@ -38,6 +38,12 @@ public class Main
 		String[] a = {"MAIN"};
         processing.core.PApplet.runSketch( a, new AirSeaBattle());
     }
+
+    public void soundMandala()
+    {
+        String[] a = {"MAIN"};
+        processing.core.PApplet.runSketch( a, new SoundMandala());
+    }
     
     public void dogsCats()
     {
@@ -80,6 +86,6 @@ public class Main
 
     public static void main(String[] args) {
         Main main = new Main();
-		main.helloPitchSpeller();   
+		main.soundMandala();        
     }
 }
