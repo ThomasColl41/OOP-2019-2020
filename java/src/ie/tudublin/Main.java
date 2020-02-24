@@ -9,6 +9,12 @@ public class Main
         processing.core.PApplet.runSketch( a, new ArraysExample());
     }
 
+    public void helloPitchSpeller()
+	{
+		String[] a = {"MAIN"};
+        processing.core.PApplet.runSketch( a, new PitchSpeller());
+    }
+
     public void helloProcessing()
 	{
 		String[] a = {"MAIN"};
@@ -74,6 +80,6 @@ public class Main
 
     public static void main(String[] args) {
         Main main = new Main();
-		main.helloArrays();   
+		main.helloPitchSpeller();   
     }
 }
