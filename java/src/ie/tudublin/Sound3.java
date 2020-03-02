@@ -3,7 +3,7 @@ package ie.tudublin;
 import processing.core.PApplet;
 import ddf.minim.*;
 
-public class Sound2 extends PApplet
+public class Sound3 extends PApplet
 {	
 	Minim minim;
 	AudioSample as;
@@ -21,7 +21,7 @@ public class Sound2 extends PApplet
 	public void setup() 
 	{
 		minim = new Minim(this);
-		as = minim.loadSample("scale.wav", frameSize);
+		as = minim.loadSample("heroplanet.mp3", frameSize);
 		colorMode(HSB);
 	}
 
@@ -49,6 +49,7 @@ public class Sound2 extends PApplet
 			as.stop();
 			as.trigger();
 		}
+
 	}
 
 	float offs = 0;
@@ -71,7 +72,7 @@ public class Sound2 extends PApplet
 			);
 			line(cx, cy, x, y);
 		}
-		offs += 10f;
+		offs += average * 100f;		
 	}
 	
 	public void draw()
@@ -87,7 +88,7 @@ public class Sound2 extends PApplet
 				, 255
 				, 255
 			);
-			line(i, cy, i, cy + as.left.get(i) * cy);
+			//line(i, cy, i, cy + ai.left.get(i) * cy);
 			sum += abs(as.left.get(i));
 		}
 		average = sum / as.bufferSize();
@@ -109,5 +110,6 @@ public class Sound2 extends PApplet
 		textSize(22);
 		text(freq, 100, 50);
 
+		circleVisual();
 	}
 }
