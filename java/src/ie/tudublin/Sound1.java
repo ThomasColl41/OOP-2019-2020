@@ -64,14 +64,14 @@ public class Sound1 extends PApplet
 		ellipse(200, lerpedcircley, 50, 50);
 		*/
 
-		for(int i = 0 ; i < as.bufferSize(); i ++)
+		for(int i = 0 ; i < as.bufferSize() - 1; i ++)
 		{
 			stroke(
 				map(i, 0, as.bufferSize(), 0, 255)
 				, 255
 				, 255
 			);
-			// line(i, cy, i, cy + as.left.get(i) * cy);
+			//line(i, cy, i, cy + as.left.get(i) * cy);
 			//line(i, cy + as.left.get(i), i + 100, cy + as.left.get(i) * cy);
 			//line(width - i, cy + as.left.get(i) + 50, width - i - 100, cy + as.left.get(i) * cy + 50);
 			//line(i, mouseY, i, mouseY + as.left.get(i) * cy);
