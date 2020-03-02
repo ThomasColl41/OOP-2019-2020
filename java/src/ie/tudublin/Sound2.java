@@ -43,10 +43,11 @@ public class Sound2 extends PApplet
 
 	public void keyPressed()
 	{
-<<<<<<< HEAD
-		as.stop();
-		as.trigger();
-
+		if(key == ' ')
+		{
+			as.stop();
+			as.trigger();
+		}
 	}
 
 	float offs = 0;
@@ -70,13 +71,6 @@ public class Sound2 extends PApplet
 			line(cx, cy, x, y);
 		}
 		offs += 10f;
-=======
-		if (key == ' ')
-		{
-			as.stop();
-			as.trigger();
-		}
->>>>>>> lab5solution
 	}
 	
 	public void draw()
