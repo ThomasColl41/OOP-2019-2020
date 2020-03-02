@@ -15,6 +15,11 @@ public class Sound2 extends PApplet
 
 	int frameSize = 1024;
 
+	/*
+	Bryan's solution
+	float frameToSecond = 44100 / (float) frameSize;
+	*/
+
 	public void settings()
 	{
 		size(1024, 500);
@@ -67,44 +72,50 @@ public class Sound2 extends PApplet
 			}
 		}
 
-		// if (frequency > frequencies[frequencies.length - 1])
-		// {
-		// 	for (spellIndex = frequencies.length; spellIndex < spellings.length; spellIndex++)
-		// 	{
-		// 		if (frequency > (frequencies[spellIndex % frequencies.length]) - 40 && frequency < (frequencies[spellIndex % frequencies.length] + 40))
-		// 		{
-		// 			note = spellings[spellIndex];
-		// 		}
-
-		// 		// if (frequency - frequencies[spellIndex % frequencies.length] >= frequencies[(spellIndex % frequencies.length) + 1] - frequency)
-		// 		// {
-		// 		// 	note = spellings[spellIndex];
-		// 		// }
-		// 		// else{
-		// 		// 	note = spellings[spellIndex + 1];
-		// 		// }
-		// 	}
-		// }
-		// else
-		// {
-		// 	for (spellIndex = 0; spellIndex < spellings.length / 2; spellIndex++)
-		// 	{
-		// 		if (frequency > (frequencies[spellIndex % frequencies.length]) - 40 && frequency < (frequencies[spellIndex % frequencies.length] + 40))
-		// 		{
-		// 			note = spellings[spellIndex];
-		// 		}
-
-		// 		// if (frequency - frequencies[spellIndex % frequencies.length] >= frequencies[(spellIndex % frequencies.length) + 1] - frequency)
-		// 		// {
-		// 		// 	note = spellings[spellIndex];
-		// 		// }
-		// 		// else{
-		// 		// 	note = spellings[spellIndex + 1];
-		// 		// }
-		// 	}
-		// }
 		return note;
 	}
+
+	public void circularSound()
+	{
+		float theta = 0;
+		float cx = width / 2;
+		float cy = height / 2;
+		float circX;
+		float circY;
+
+		for(int i = 0; i < as.bufferSize(); i++)
+		{
+			//float theta = map(i, 0, as.bufferSize(), 0, TWO_PI);
+			stroke(
+				map(i, 0, as.bufferSize(), 0, 255)
+				, 255
+				, 255
+			);
+			float radius = as.left.get(i);
+			circX = (sin(theta) * radius) * cy;
+			circY = (cos(theta) * radius) * cy;
+
+			theta += TWO_PI / (float) as.bufferSize();
+
+			line(cx, cy, circX + cx, circY + cy);
+		}
+	}
+
+	/*
+	Bryan's Solution
+	public int countZeroCrossings()
+	{
+		int count = 0;
+		for(int i = 1 ; i < as.bufferSize(); i++)
+		{
+			if (as.left.get(i-1) > 0 && as.left.get(i) <= 0)
+			{
+				zeroCrossCount++;
+			}
+		}
+		return count;
+	}
+	*/
 	
 	public void draw()
 	{	
@@ -133,13 +144,24 @@ public class Sound2 extends PApplet
 			, 255
 			, 255
 		);
-		ellipse(400 , cy,w, w);
-		ellipse(600 , cy,lerpedw, lerpedw);
+		//ellipse(400 , cy,w, w);
+		//ellipse(600 , cy,lerpedw, lerpedw);
 
 		float noteF = countZeroCrossings() * (1.0f/0.023f);
 		String note = spell(noteF);
 		
 		text(noteF, 50, 50);
 		text(note, 50, 100);
+
+		/*
+		Bryan's Solution
+		int count = countZeroCrossings();
+
+		float freq = count * freqTosecond;
+		texySize(22);
+		text(freq, 100, 50);
+		*/
+
+		circularSound();	
 }
 }
