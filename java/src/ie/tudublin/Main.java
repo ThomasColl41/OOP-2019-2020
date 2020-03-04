@@ -12,7 +12,7 @@ public class Main
     public void helloPitchSpeller()
 	{
 		String[] a = {"MAIN"};
-        processing.core.PApplet.runSketch( a, new PitchSpeller());
+        //processing.core.PApplet.runSketch( a, new PitchSpeller());
     }
 
     public void helloProcessing()
@@ -104,6 +104,6 @@ public class Main
 
     public static void main(String[] args) {
         Main main = new Main();
-		main.sound1();        
+		main.sound2();        
     }
 }
