@@ -122,16 +122,16 @@ public class Sound2 extends PApplet
 
 		stroke(255);
 		int highestBin = 0;
+		float highestEnergy = 0;
 		for(int i = 0 ; i < fft.specSize() ; i ++)
 		{
 			line(i, 0, i, fft.getBand(i) * 100);
-			if(fft.getBand(i) > highestBin)
+			if(fft.getBand(i) > highestEnergy)
 			{
-				highestBin = (int)fft.getBand(i);
+				highestEnergy = fft.getBand(i);
+				highestBin = i;
 			}
 		}
-
-		highestBin = (int)(highestBin * 1.023);
 
 		float freq1 = fft.indexToFreq(highestBin);
 
