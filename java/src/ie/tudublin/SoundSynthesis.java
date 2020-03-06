@@ -8,9 +8,13 @@ import processing.core.PApplet;
 
 public class SoundSynthesis extends PApplet
 {
+
+    float[] frequencies = {293.66f, 329.63f, 369.99f, 392.00f, 440.00f, 493.88f, 554.37f, 587.33f
+        , 659.25f, 739.99f, 783.99f, 880.00f, 987.77f, 1108.73f, 1174.66f};
     Minim minim;
     AudioOutput out;
     Oscil wave;
+    Oscil wave1;
 
     public void settings()
     {
@@ -25,6 +29,8 @@ public class SoundSynthesis extends PApplet
         out = minim.getLineOut();
         wave = new Oscil( 440, 0.5f, Waves.SQUARE );
         wave.patch(out);
+        wave1 = new Oscil( 440, 0.5f, Waves.SQUARE );
+        wave1.patch(out);
     }
 
     public void keyPressed() {
@@ -39,11 +45,24 @@ public class SoundSynthesis extends PApplet
 
     public void draw()
     {
-        //wave.setFrequency(random(60, 2000));
         float n = noise(offset);
+
         wave.setFrequency(
+            frequencies[(int) map(n, 0, 1, 0, frequencies.length - 5)]
+        );
+
+        wave1.setFrequency(
+            frequencies[(int) map(n, 0, 1, 5, frequencies.length)]
+        );
+        
+        /*wave.setFrequency(
             map(n, 0, 1, 200, 600)
         );
+
+        wave1.setFrequency(
+            map(n, 0, 1, 600, 200)
+        );
+        */
         offset += 0.01f;
 
         float cx = width / 2;
