@@ -85,7 +85,7 @@ public class Star
         this.displayName = displayName;
         this.xG = xG;
         this.yG = yG;
-        this.zG = xG;
+        this.zG = zG;
         this.distance = distance;
         this.absMag = absMag;        
     }
