@@ -68,11 +68,58 @@ public class StarMap extends PApplet
         }
     }
 
+    public Star starSelect()
+    {
+        Star selected = null;
+        float border = width * 0.05f;
+
+        for(Star s:stars)
+        {
+            if((map(s.getxG(), -5, 5, border, width - border) - 5 <= mouseX
+            && map(s.getxG(), -5, 5, border, width - border) + 5 >= mouseX)
+            && (map(s.getyG(), -5, 5, border, height - border) - 5 <= mouseY
+            && map(s.getyG(), -5, 5, border, height - border) + 5 >= mouseY))
+            {
+                selected = s;
+            }
+        }
+
+        return selected;
+    }
+
+    public void distCalc()
+    {
+        Star selected1 = null;
+        Star selected2 = null;
+        float distance = 0;
+        float border = width * 0.05f;
+
+        selected1 = starSelect();
+        selected2 = starSelect();
+
+        if(selected1 != null && selected2 != null)
+        {
+            distance = abs((selected1.getDistance() - selected2.getDistance()));
+            displayResult("The distance between " + selected1.getDisplayName() + " and " + selected2.getDisplayName() + " is "
+            + distance);
+
+            selected1 = null;
+            selected2 = null;
+        }
+    }
+
+    public void displayResult(String result)
+    {
+        text(result, 0, height - 10);
+    }
+
     public void draw()
     {
         background(0);
         drawGrid();
         drawStars();
+        distCalc();
+        displayResult("AAAAAAA");
     }
 
 }
