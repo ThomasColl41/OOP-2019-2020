@@ -10,7 +10,9 @@ public class StarMap extends PApplet
 {
     // Arraylist can grow and shrink
     // Generic
-    ArrayList<Star> stars = new ArrayList<Star>(); 
+    ArrayList<Star> stars = new ArrayList<Star>();
+    // Store the stars clicked on by the user
+    ArrayList<Star> selStar = new ArrayList<Star>(); 
 
     public void drawStars()
     {
@@ -46,8 +48,11 @@ public class StarMap extends PApplet
 
     public void setup()
     {
+        background(0);
         loadData();
         printStars();
+        drawGrid();
+        drawStars();
     }
 
     public void loadData()
@@ -68,11 +73,9 @@ public class StarMap extends PApplet
         }
     }
 
-    public Star starSelect()
+    public void mousePressed()
     {
-        Star selected = null;
         float border = width * 0.05f;
-
         for(Star s:stars)
         {
             if((map(s.getxG(), -5, 5, border, width - border) - 5 <= mouseX
@@ -80,31 +83,38 @@ public class StarMap extends PApplet
             && (map(s.getyG(), -5, 5, border, height - border) - 5 <= mouseY
             && map(s.getyG(), -5, 5, border, height - border) + 5 >= mouseY))
             {
-                selected = s;
+                selStar.add(s);
             }
         }
-
-        return selected;
     }
 
     public void distCalc()
     {
-        Star selected1 = null;
-        Star selected2 = null;
+        Star selected1;
+        Star selected2;
         float distance = 0;
         float border = width * 0.05f;
 
-        selected1 = starSelect();
-        selected2 = starSelect();
-
-        if(selected1 != null && selected2 != null)
+        if(selStar.size() >= 1)
         {
-            distance = abs((selected1.getDistance() - selected2.getDistance()));
-            displayResult("The distance between " + selected1.getDisplayName() + " and " + selected2.getDisplayName() + " is "
-            + distance);
+            background(0);
+            drawGrid();
+            drawStars();
+            stroke(255, 255, 0);
+            selected1 = selStar.get(0);
+            line(map(selected1.getxG(), -5, 5, border, width - border), 
+            map(selected1.getyG(), -5, 5, border, width - border), 
+            mouseX, mouseY);
 
-            selected1 = null;
-            selected2 = null;
+
+            if(selStar.size() == 2)
+            {
+                selected1 = selStar.remove(0);
+                selected2 = selStar.remove(0);
+        
+                displayResult("The distance between " + selected1.getDisplayName() + " and " + selected2.getDisplayName() + " is " 
+                + dist(selected1.getxG(), selected1.getyG(), selected2.getxG(), selected2.getyG()));
+            }
         }
     }
 
@@ -115,11 +125,7 @@ public class StarMap extends PApplet
 
     public void draw()
     {
-        background(0);
-        drawGrid();
-        drawStars();
-        distCalc();
-        displayResult("AAAAAAA");
+        distCalc();   
     }
 
 }
